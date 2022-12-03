@@ -28,7 +28,7 @@ float calcNum(char sign, float num1, float num2) {
             quotNum = num1 * num2;
             return quotNum;
         case '%':
-            modNum = num % num2;
+            modNum = num1 % num2;
             return modNum;
     }
 }
