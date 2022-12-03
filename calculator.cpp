@@ -12,7 +12,6 @@ float calcNum(char sign, float num1, float num2) {
     float diffNum;
     float prodNum;
     float quotNum;
-    float modNum;
     // using a switch case to separate all the equations.
     switch (sign) {
         case '+':
@@ -27,10 +26,13 @@ float calcNum(char sign, float num1, float num2) {
         case '*':
             quotNum = num1 * num2;
             return quotNum;
-        case '%':
-            modNum = num1 % num2;
-            return modNum;
     }
+}
+
+int modulusNum(char sign, int num1, int num2) {
+    float modNum;
+    modNum = num1 % num2;
+    return modNum;
 }
 
 int main() {
@@ -39,6 +41,7 @@ int main() {
     float userNum1;
     float userNum2;
     float ansNum;
+    int modAns;
 
     // Telling the type of operation we can do.
     std::cout << "Pick an operation sign (+, -, * , %, /): ";
@@ -69,8 +72,9 @@ int main() {
         } else if (operSign == '*') {
             std::cout << userNum1 << " * " << userNum2 << " = " << ansNum;
         } else if (operSign == '%') {
-            std::cout << userNum1 << " % " << userNum2 << " = " << ansNum;
-        // Error checking for the operation sign.
+            modAns = modulusNum(operSign, userNum1, userNum2);
+            std::cout << userNum1 << " % " << userNum2 << " = " << modAns;
+            // Error checking for the operation sign.
         } else {
             std::cout << "Invalid operation sign.";
         }
