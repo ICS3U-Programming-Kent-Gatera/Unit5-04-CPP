@@ -5,8 +5,9 @@
 // Does basic math operations using operation signs and user input.
 
 #include <iostream>
+#include <iomanip>
 
-float calcNum(char sign, float num1, float num2) {
+float calculate(char sign, float num1, float num2) {
     // Defining local variables
     float sumNum;
     float diffNum;
@@ -26,9 +27,12 @@ float calcNum(char sign, float num1, float num2) {
         case '*':
             quotNum = num1 * num2;
             return quotNum;
+        default:
+            return 0;
     }
 }
 
+// I made a separate function for modulus since it needs to return int.
 int modulusNum(char sign, int num1, int num2) {
     float modNum;
     modNum = num1 % num2;
@@ -41,6 +45,8 @@ int main() {
     float userNum1;
     float userNum2;
     float ansNum;
+    std::string userNum1Str;
+    std::string userNum2Str;
     int modAns;
 
     // Telling the type of operation we can do.
@@ -52,17 +58,21 @@ int main() {
         operSign == '/' || operSign == '*' || operSign == '%') {
         try {
             std::cout << "What is the first number?: ";
-            std::cin >> userNum1;
+            std::cin >> userNum1Str;
+            userNum1 = stof(userNum1Str);
             std::cout << "What is the second number?: ";
-            std::cin >> userNum2;
+            std::cin >> userNum2Str;
+            userNum2 = stof(userNum2Str);
         } catch (std::invalid_argument) {
-            std::cout << "Enter valid numbers.";
+            std::cout << "Enter a valid number.\n";
+            std::cout << "Restart...\n";
+            return main();
         }
 
         // Output of every case/ operation.
 
         // Calling the calcNum function.
-        ansNum = calcNum(operSign, userNum1, userNum2);
+        ansNum = calculate(operSign, userNum1, userNum2);
         if (operSign == '+') {
             std::cout << userNum1 << " + " << userNum2 << " = " << ansNum;
         } else if (operSign == '-') {
@@ -74,9 +84,9 @@ int main() {
         } else if (operSign == '%') {
             modAns = modulusNum(operSign, userNum1, userNum2);
             std::cout << userNum1 << " % " << userNum2 << " = " << modAns;
-            // Error checking for the operation sign.
-        } else {
-            std::cout << "Invalid operation sign.";
         }
+    } else {
+            // Error checking for the operation sign.
+            std::cout << "Invalid operation sign.";
     }
 }
